@@ -58,6 +58,7 @@ namespace ClinicApp.XamlPages
                 var name = txtBoxName.Text;
                 var phone = mskTxtPhone.Value;
                 var dateOfBirth = datePickerBirth.SelectedDate;
+                var today = DateTime.Now;
                 var address = txtBoxAddress.Text;
                 var gender = (Gender)Enum.Parse(typeof(Gender),
                     ((ComboBoxItem)comboBlockGender.SelectedValue).Tag.ToString());
@@ -73,7 +74,12 @@ namespace ClinicApp.XamlPages
                 {
                     status = false;
                     messageBuilder.Append("Дата рождения - обязательное поле для ввода.\n");
-                }
+                } 
+                else if (dateOfBirth > today)
+                {
+                    status = false;
+					messageBuilder.Append("Введена некорректная дата рождения.\nДата рождения еще не наступила.\n");
+				}
                 #endregion
                 #region Checking entered address
                 if (String.IsNullOrEmpty(address))
